@@ -44,29 +44,33 @@ class ValueIterationAgent(ValueEstimationAgent):
         self.values = util.Counter() # A Counter is a dict with default 0
 
         # Write value iteration code here
+        self.values = self.valueIterate(self)
+
+    def valueIterate(self):
         iterator = 0
-        while iterator < range(self.iterations): # while loop as we don't utilize the extra varible in a for loop
+        while iterator < range(self.iterations):  # while loop as we don't utilize the extra varible in a for loop
 
-            temp_values = util.counter() # Temporary counter to maintain a dict of values associated to states which will be discovered below
-            
-            for state in self.mdp.getStates(): # Get each state so that we can perform calculations on it
+            temp_values = util.counter()  # Temporary counter to maintain a dict of values associated to states which will be discovered below
 
-                if not self.mdp.isTerminal(state): # If the state is the terminal (end point)
+            for state in self.mdp.getStates():  # Get each state so that we can perform calculations on it
 
-                    values = [] # Array to store the q-values associated to states and actions
-                    possible_actions = self.mdp.getPossibleActions(state) # possible actions that can be done in a state
-                    #maximum_value = 0 # Varible to store the maximum reward found in all actions
+                if not self.mdp.isTerminal(state):  # If the state is the terminal (end point)
+
+                    values = []  # Array to store the q-values associated to states and actions
+                    possible_actions = self.mdp.getPossibleActions(
+                        state)  # possible actions that can be done in a state
+                    # maximum_value = 0 # Varible to store the maximum reward found in all actions
                     for action in possible_actions:
-                        values.append(self.computeQValueFromValues(state, action)) #create a list of all the q-values for all possible moves
+                        values.append(self.computeQValueFromValues(state,
+                                                                   action))  # create a list of all the q-values for all possible moves
 
-                    print (values)
-                    temp_values[state] = max(values) #find the maximum value for all possible moves
+                    print(values)
+                    temp_values[state] = max(values)  # find the maximum value for all possible moves
 
-                else: #if the state is terminal, we should return 0? 
+                else:  # if the state is terminal, we should return 0?
                     temp_values[state] = 0
-            iterator += 1
 
-        self.values = temp_values
+        return temp_values
 
     def getValue(self, state):
         """
