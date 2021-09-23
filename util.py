@@ -109,7 +109,7 @@ class FixedRandom:
             1850995280L, 1451917312L, 3841455409L, 3926840308L, 1397397252L, 2572864479L, 2500171350L, \
             3119920613L, 531400869L, 1626487579L, 1099320497L, 407414753L, 2438623324L, 99073255L, \
             3175491512L, 656431560L, 1153671785L, 236307875L, 2824738046L, 2320621382L, 892174056L, \
-            230984053L, 719791226L, 2718891946L, 624L), None)
+            230984053L, 719791226L, 2718891946L, 624L), None )
         self.random = random.Random()
         self.random.setstate(fixedState)
 
@@ -430,7 +430,7 @@ def raiseNotDefined():
     line = inspect.stack()[1][2]
     method = inspect.stack()[1][3]
 
-    print "*** Method not implemented: %s at line %s of %s" % (method, line, fileName)
+    print("*** Method not implemented: %s at line %s of %s" % (method, line, fileName))
     sys.exit(1)
 
 def normalize(vectorOrCounter):
@@ -574,7 +574,7 @@ def pause():
     """
     Pauses the output stream awaiting user feedback.
     """
-    print "<Press enter/return to continue>"
+    print("<Press enter/return to continue>")
     raw_input()
 
 
