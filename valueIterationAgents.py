@@ -67,16 +67,6 @@ class ValueIterationAgent(ValueEstimationAgent):
         
         self.values = temp_values
 
-
-
-
-
-
-
-
-
-
-
     def getValue(self, state):
         """
           Return the value of the state (computed in __init__).
@@ -89,7 +79,31 @@ class ValueIterationAgent(ValueEstimationAgent):
           Compute the Q-value of action in state from the
           value function stored in self.values.
         """
+        # Q^pi = Set(Rt+n * gamma ^ n ) * (St, aT)
+        # Q = (r + g) * (T) where G = Discount * values
+        # need to get ...
+        #   r = reward
+        #   g = d * v
+        #   d = discount (gamma)
+        #   v = values
+        #   T = prob
         "*** YOUR CODE HERE ***"
+        values = [] # Array to store q-values associated to states and actions
+        next_state = self.mdp.getTransitionStatesandProbs(state, action) # Get the next state probabilites and actions 
+
+        for state_prime, probs in next_state: # Following the equation stated from the textbook
+            d = self.discount
+            v = self.values
+            g = d * v
+            r = self.mdp.getReward(state, action, state_prime)
+            q_value = probs * (r + g)
+            values.append(q_value)
+        
+        return sum(values) # return the sum of the array (this is the set E)
+
+
+
+
         util.raiseNotDefined()
 
     def computeActionFromValues(self, state):
