@@ -64,7 +64,8 @@ class ValueIterationAgent(ValueEstimationAgent):
 
                 else: #if the state is terminal, we should return 0? 
                     temp_values[state] = 0
-        
+            iterator += 1
+
         self.values = temp_values
 
     def getValue(self, state):
@@ -116,7 +117,25 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        import numpy as np
+        possible_actions = self.mdp.getPossibleActions(state)
+
+        if not possible_actions: # If there are no possible actions, return None.
+            return None
+        else:
+            values = []
+            actions = []
+            for action in possible_actions:
+                q_value = self.computeQValueFromValues(state, action)
+                values.append(q_value)
+                actions.append(action)
+
+            max_action = np.argmax(values, axis=0) #find the
+
+            return actions[max_action]
+
+
+        # util.raiseNotDefined()
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
